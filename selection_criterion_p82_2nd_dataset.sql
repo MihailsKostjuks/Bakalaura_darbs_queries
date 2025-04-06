@@ -1,0 +1,12 @@
+-- SELECT *
+-- FROM title
+-- JOIN movie_companies ON title.id = movie_companies.movie_id
+-- JOIN company_name ON company_name.id = movie_companies.company_id
+-- WHERE company_name.country_code = '[us]'; -- 3s
+
+-- SELECT *
+-- FROM title
+-- JOIN movie_companies ON title.id = movie_companies.movie_id
+-- JOIN company_name ON company_name.id = movie_companies.company_id
+-- WHERE company_name.country_code = '[us]'
+-- AND title.production_year = 2010; -- 600ms
