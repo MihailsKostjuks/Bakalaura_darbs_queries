@@ -1,6 +1,9 @@
+CREATE INDEX IF NOT EXISTS aka_title_production_year ON aka_title(production_year);
 
--- create index aka_title_production_year on aka_title(production_year);
+-- Baseline
+SELECT * FROM aka_title WHERE production_year::text = '2011';
 
-select * from aka_title where production_year = 2011; -- 100ms
+-- Solution
+SELECT * FROM aka_title WHERE production_year = 2011;
 
-select * from aka_title where production_year::text = '2011'; -- 250ms
+
