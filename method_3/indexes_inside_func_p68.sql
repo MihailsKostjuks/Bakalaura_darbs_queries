@@ -1,6 +1,6 @@
 -- Baseline
-CREATE INDEX flight_actual_departure ON flight (actual_departure);
-CREATE INDEX flight_scheduled_departure ON flight (scheduled_departure);
+CREATE INDEX IF NOT EXISTS flight_actual_departure ON flight (actual_departure);
+CREATE INDEX IF NOT EXISTS flight_scheduled_departure ON flight (scheduled_departure);
 SELECT * FROM flight
 WHERE COALESCE(actual_departure, scheduled_departure) BETWEEN '2020-08-17' AND '2020-08-18';
 
