@@ -1,3 +1,4 @@
+-- Baseline
 CREATE OR REPLACE FUNCTION company_from (p_country_code text)
 RETURNS TEXT language plpgsql AS
 $body$
@@ -14,11 +15,11 @@ WHEN p_country_code = '[ca]' THEN 'Canada'
 WHEN p_country_code = '[jp]' THEN 'Japan'
 ELSE 'Other' END);
 END; $body$;
+SELECT id, name, company_from(country_code)
+FROM company_name;
 
-
-EXPLAIN ANALYZE SELECT id, name, company_from(country_code) FROM company_name; -- 190 ms
-
-EXPLAIN ANALYZE SELECT id, name, 
+-- Solution
+SELECT id, name, 
 CASE
 WHEN country_code = '[null]' THEN 'Unknown'
 WHEN country_code = '[en]' THEN 'USA'
