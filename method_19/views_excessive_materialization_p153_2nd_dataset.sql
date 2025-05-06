@@ -9,7 +9,7 @@ JOIN company_type AS ct ON mc.company_type_id = ct.id;
 SELECT title_id, info FROM movie_company_infos
 WHERE production_year = 2000
 GROUP BY 1,2
-ORDER BY title_id; -- 3.3s
+ORDER BY title_id;
 
 -- Solution
 SELECT t.id, mi.info
@@ -17,4 +17,4 @@ FROM title AS t
 JOIN movie_info AS mi ON t.id = mi.movie_id
 WHERE production_year = 2000
 GROUP BY 1,2
-ORDER BY t.id; -- 1.7s
+ORDER BY t.id;
