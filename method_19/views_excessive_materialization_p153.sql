@@ -12,12 +12,12 @@ JOIN passenger p USING (booking_id)
 GROUP BY 1,2,3;
 SELECT flight_id
 FROM flight_departure
-WHERE departure_airport='ORD'; -- 4s (materializing too much data in the view slows down the simple query, better use underlying tables)
+WHERE departure_airport='ORD';
 
 -- Solution
 SELECT flight_id FROM flight
 WHERE departure_airport='ORD'
-AND flight_id IN (SELECT flight_id FROM booking_leg); -- 2.5s
+AND flight_id IN (SELECT flight_id FROM booking_leg);
 
 
 
