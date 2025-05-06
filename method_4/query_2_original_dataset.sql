@@ -1,10 +1,11 @@
-SELECT type , COUNT (*)
+-- Baseline
+SELECT type , COUNT(*)
 FROM titles
-GROUP BY( type )
-ORDER BY ( type ) ASC ; -- 0.31s
+GROUP BY (type)
+ORDER BY (type) ASC;
 
-
-SELECT type , COUNT ( title_id )
+-- Solution
+SELECT type , COUNT(title_id)
 FROM titles
-GROUP BY( type )
-ORDER BY ( type ) ASC ; -- 0.28s
+GROUP BY (type)
+ORDER BY (type) ASC;

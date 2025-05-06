@@ -1,9 +1,9 @@
-set search_path to postgres_air;
+-- Baseline
+SELECT level, COUNT(*) FROM frequent_flyer
+GROUP BY level
+ORDER BY level ASC;
 
-explain analyze select level, count(*) from frequent_flyer
-group by level
-order by level ASC; -- 29ms 
-
-explain analyze select level, count(frequent_flyer_id) from frequent_flyer
-group by level
-order by level ASC; -- 30ms 
+-- Solution
+SELECT level, COUNT(frequent_flyer_id) FROM frequent_flyer
+GROUP BY level
+ORDER BY level ASC;
