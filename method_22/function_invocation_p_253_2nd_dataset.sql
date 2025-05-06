@@ -31,4 +31,4 @@ WHEN country_code = '[fr]' THEN 'France'
 WHEN country_code = '[ca]' THEN 'Canada'
 WHEN country_code = '[jp]' THEN 'Japan'
 ELSE 'Other' END 
-FROM company_name; -- 85ms
+FROM company_name;
