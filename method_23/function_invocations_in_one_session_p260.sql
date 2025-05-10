@@ -89,7 +89,7 @@ v_sql:=v_sql ||$$ JOIN flight f USING (flight_id) $$;
 END IF;
 v_sql:=v_sql ||$$ WHERE $$||
 concat_ws($$ AND $$,v_where_booking, v_where_booking_leg, v_where_flight);
-return query EXECUTE (v_sql);
+RETURN QUERY EXECUTE (v_sql);
 END;
 $func$ LANGUAGE plpgsql;
 
