@@ -1,11 +1,11 @@
-set search_path to postgres_air;
+-- Baseline
+SELECT phone, phone_type, primary_phone FROM phone
+WHERE phone_type LIKE 'mobile'
+AND LENGTH(phone) = 10
+ORDER BY phone;
 
-explain analyze select phone, phone_type, primary_phone from phone
-where phone_type like 'mobile'
-and length(phone) = 10
-order by phone; -- 152ms
-
-explain analyze select phone, phone_type, primary_phone from phone
-where phone_type = 'mobile'
-and length(phone) = 10
-order by phone; -- 164ms
+-- Solution
+SELECT phone, phone_type, primary_phone FROM phone
+WHERE phone_type = 'mobile'
+AND LENGTH(phone) = 10
+ORDER BY phone;
