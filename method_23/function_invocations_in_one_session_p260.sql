@@ -63,7 +63,8 @@ v_where_booking text;
 v_where_booking_leg text;
 v_where_flight text;
 BEGIN
-IF p_email IS NOT NULL then v_where_booking :=$$ LOWER(email) LIKE $$
+IF p_email IS NOT NULL
+THEN v_where_booking :=$$ LOWER(email) LIKE $$
 ||quote_literal(p_email||'%'); END IF;
 IF p_flight_id IS NOT NULL then v_where_booking_leg:= $$ flight_id=$$||p_flight_id::text;
 END IF;
