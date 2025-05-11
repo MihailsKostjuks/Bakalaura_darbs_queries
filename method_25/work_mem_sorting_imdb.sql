@@ -1,5 +1,6 @@
-SET work_mem TO default; -- 4 MB
-explain analyze select * from company_name order by name, country_code; -- 1560ms.
+-- Baseline
+SELECT * FROM company_name ORDER BY name, country_code;
 
-SET work_mem to '1 GB';
-explain analyze select * from company_name order by name, country_code; -- 1460ms.
+-- Solution
+SET work_mem TO '1 GB';
+SELECT * FROM company_name ORDER BY name, country_code;
