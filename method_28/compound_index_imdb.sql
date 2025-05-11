@@ -1,16 +1,17 @@
--- create index aka_title_production_year on aka_title(production_year);
--- create index aka_title_note_text_pattern ON aka_title(note text_pattern_ops);
+-- Baseline
+DROP INDEX IF EXISTS aka_title_production_year_note_text_pattern;
+CREATE INDEX IF NOT EXISTS aka_title_production_year ON aka_title(production_year);
+CREATE INDEX IF NOT EXISTS aka_title_note_text_pattern ON aka_title(note text_pattern_ops);
 
--- explain analyze select * from aka_title
--- where production_year between 1980 and 2000
--- and note like '(Argentina%'; -- 1.3ms
+SELECT * FROM aka_title
+WHERE production_year BETWEEN 1980 AND 2000
+AND note LIKE '(Argentina%';
 
--- drop index aka_title_production_year;
--- drop index aka_title_note_text_pattern;
--- create index aka_title_production_year_note_text_pattern on aka_title(production_year, note text_pattern_ops);
+-- Solution
+DROP INDEX IF EXISTS aka_title_production_year;
+DROP INDEX IF EXISTS aka_title_note_text_pattern;
+CREATE INDEX IF NOT EXISTS aka_title_production_year_note_text_pattern on aka_title(production_year, note text_pattern_ops);
 
-explain analyze select * from aka_title
-where production_year between 1980 and 2000
-and note like '(Argentina%'; -- 2.3ms
-
--- drop index aka_title_production_year_note_text_pattern;
+SELECT * FROM aka_title
+WHERE production_year BETWEEN 1980 AND 2000
+AND note LIKE '(Argentina%';

@@ -1,21 +1,17 @@
-set search_path to postgres_air;
+-- Baseline
+DROP INDEX IF EXISTS flight_status_actual_departure;
+CREATE INDEX IF NOT EXISTS flight_status ON flight (status);
+CREATE INDEX IF NOT EXISTS flight_actual_departure ON flight(actual_departure);
 
--- create index flight_status on flight (status);
--- create index flight_actual_departure on flight(actual_departure);
+SELECT * FROM flight 
+WHERE status = 'Delayed'
+AND actual_departure BETWEEN '2020-05-10' AND '2020-10-15';
 
-explain analyze select * from flight 
-where status = 'Delayed'
-and actual_departure between '2020-05-10' and '2020-10-15'; -- 27ms
+-- Solution
+DROP INDEX IF EXISTS flight_status;
+DROP INDEX IF EXISTS flight_actual_departure;
+CREATE INDEX IF NOT EXISTS flight_status_actual_departure on flight (status, actual_departure);
 
--- drop index flight_status;
--- drop index flight_actual_departure;
-
--- create index flight_status_actual_departure on flight (status, actual_departure);
-
-explain analyze select * from flight 
-where status = 'Delayed'
-and actual_departure between '2020-05-10' and '2020-10-15'; -- 22ms
-
--- drop index flight_status_actual_departure;
-
-
+SELECT * FROM flight 
+WHERE status = 'Delayed'
+AND actual_departure BETWEEN '2020-05-10' AND '2020-10-15';
