@@ -1,6 +1,6 @@
--- 2 workers vs 5 workers
-set search_path to postgres_air;
-explain analyze select count(*) from passenger; -- 605ms
+-- Baseline
+SELECT COUNT(*) FROM passenger;
 
-set max_parallel_workers_per_gather to 5;
-explain analyze select count(*) from passenger; -- 550ms
+-- Solution
+SET max_parallel_workers_per_gather TO 10;
+SELECT COUNT(*) FROM passenger;
