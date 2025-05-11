@@ -19,7 +19,7 @@ AND ci.movie_id = mc.movie_id
 AND ci.movie_id = mk.movie_id
 AND mc.movie_id = mk.movie_id;
 
--- Solution
+-- Solution (Both temp table creation and executable query should be considered in result)
 CREATE TEMP TABLE temp1 AS
 SELECT mk.movie_id
 FROM keyword AS k,
