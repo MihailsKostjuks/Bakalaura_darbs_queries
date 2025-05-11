@@ -1,25 +1,25 @@
-SELECT MIN(n.name) AS member_in_charnamed_movie,
-       MIN(n.name) AS a1
+-- Baseline
+SELECT  MIN(n.name) AS member_in_charnamed_movie, MIN(n.name) AS a1
 FROM cast_info AS ci,
-     company_name AS cn,
-     keyword AS k,
-     movie_companies AS mc,
-     movie_keyword AS mk,
-     name AS n,
-     title AS t
+company_name AS cn,
+keyword AS k,
+movie_companies AS mc,
+movie_keyword AS mk,
+name AS n,
+title AS t
 WHERE k.keyword ='character-name-in-title'
-  AND n.name LIKE 'X%'
-  AND n.id = ci.person_id
-  AND ci.movie_id = t.id
-  AND t.id = mk.movie_id
-  AND mk.keyword_id = k.id
-  AND t.id = mc.movie_id
-  AND mc.company_id = cn.id
-  AND ci.movie_id = mc.movie_id
-  AND ci.movie_id = mk.movie_id
-  AND mc.movie_id = mk.movie_id; -- 2min
+AND n.name LIKE 'X%'
+AND n.id = ci.person_id
+AND ci.movie_id = t.id
+AND t.id = mk.movie_id
+AND mk.keyword_id = k.id
+AND t.id = mc.movie_id
+AND mc.company_id = cn.id
+AND ci.movie_id = mc.movie_id
+AND ci.movie_id = mk.movie_id
+AND mc.movie_id = mk.movie_id;
 
-
+-- Solution
 CREATE TEMP TABLE temp1 AS
 SELECT mk.movie_id
 FROM keyword AS k,
@@ -27,8 +27,7 @@ movie_keyword AS mk
 WHERE mk.keyword_id = k.id
 AND k.keyword ='character-name-in-title';
 
-SELECT MIN(n.name) AS member_in_charnamed_movie,
-       MIN(n.name) AS a1
+SELECT MIN(n.name) AS member_in_charnamed_movie, MIN(n.name) AS a1
 FROM cast_info AS ci,
 company_name AS cn,
 movie_companies AS mc,
@@ -43,7 +42,6 @@ AND t.id = mc.movie_id
 AND mc.company_id = cn.id
 AND ci.movie_id = mc.movie_id
 AND ci.movie_id = temp1.movie_id
-AND mc.movie_id = temp1.movie_id; -- 11 sec (including table creation)
+AND mc.movie_id = temp1.movie_id;
 
--- https://export.arxiv.org/pdf/1902.08291v2.pdf (8th page)
 -- https://github.com/gregrahn/join-order-benchmark/blob/master/17c.sql

@@ -17,7 +17,7 @@ GROUP BY 1,2
 ORDER BY 3 DESC;
 
 -- Solution
-CREATE TABLE boarding_pass_part (
+CREATE TABLE IF NOT EXISTS boarding_pass_part (
 boarding_pass_id SERIAL,
 passenger_id BIGINT,
 booking_leg_id BIGINT,
@@ -28,31 +28,36 @@ update_ts TIMESTAMPTZ
 )
 PARTITION BY RANGE (boarding_time);
 
-CREATE TABLE boarding_pass_may
+CREATE TABLE IF NOT EXISTS boarding_pass_may
 PARTITION OF boarding_pass_part
 FOR VALUES
 FROM ('2020-05-01'::timestamptz)
 TO ('2020-06-01'::timestamptz);
 
-CREATE TABLE boarding_pass_june
+CREATE TABLE IF NOT EXISTS boarding_pass_june
 PARTITION OF boarding_pass_part
 FOR VALUES
 FROM ('2020-06-01'::timestamptz)
 TO ('2020-07-01'::timestamptz);
---
-CREATE TABLE boarding_pass_july
+
+CREATE TABLE IF NOT EXISTS boarding_pass_july
 PARTITION OF boarding_pass_part
 FOR VALUES
 FROM ('2020-07-01'::timestamptz)
 TO ('2020-08-01'::timestamptz);
---
-CREATE TABLE boarding_pass_aug
+
+CREATE TABLE IF NOT EXISTS boarding_pass_aug
 PARTITION OF boarding_pass_part
 FOR VALUES
 FROM ('2020-08-01'::timestamptz)
 TO ('2020-09-01'::timestamptz);
 
-INSERT INTO boarding_pass_part SELECT * from boarding_pass;
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM boarding_pass_part LIMIT 1) THEN
+        INSERT INTO boarding_pass_part SELECT * from boarding_pass;
+    END IF;
+END$$;
 
 SELECT
 city,
