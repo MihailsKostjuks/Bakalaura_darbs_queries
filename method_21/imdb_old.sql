@@ -24,7 +24,7 @@ ORDER BY num_actors DESC;
 SELECT 
 t.title_id,
 t.primary_title,
-COUNT(DISTINCT p.person_id) AS num_people
+COUNT(DISTINCT p.person_id) AS num_actors
 FROM public.titles t
 JOIN public.crew c ON t.title_id = c.title_id
 JOIN public.people p ON c.person_id = p.person_id
